@@ -151,7 +151,7 @@ describe('connectmoji', function() {
             expect(c.boardToString(board)).to.equal(expected);
         });
     });
-
+/*
     describe('letterToCol', function() {
         it('translates a letter to a column value (A = 0, B = 1)', function() {
             expect(c.letterToCol("A")).to.equal(0);
@@ -412,5 +412,5 @@ describe('connectmoji', function() {
             });
         });
     });
-
+*/
 });
