@@ -112,7 +112,7 @@ describe('connectmoji', function() {
         });
     });
     
-
+/*
     describe('boardToString', function() {
         it('creates string version of board', function() {
             let board = c.generateBoard(6, 7);
@@ -151,7 +151,7 @@ describe('connectmoji', function() {
             expect(c.boardToString(board)).to.equal(expected);
         });
     });
-/*
+*/
     describe('letterToCol', function() {
         it('translates a letter to a column value (A = 0, B = 1)', function() {
             expect(c.letterToCol("A")).to.equal(0);
@@ -276,7 +276,7 @@ describe('connectmoji', function() {
         });
     });
 
-
+/*
     describe('hasConsecutiveValues', function() {
         it('determines if value at location is repeated x times vertically', function() {
             const board = c.generateBoard(3, 4);
