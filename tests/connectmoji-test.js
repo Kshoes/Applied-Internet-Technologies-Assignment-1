@@ -276,7 +276,7 @@ describe('connectmoji', function() {
         });
     });
 
-/*
+
     describe('hasConsecutiveValues', function() {
         it('determines if value at location is repeated x times vertically', function() {
             const board = c.generateBoard(3, 4);
@@ -344,7 +344,7 @@ describe('connectmoji', function() {
             expect(c.hasConsecutiveValues(updatedBoard, 0, 0, 3)).to.be.false;
         });
     });
-
+/*
     describe('autoplay', function() {
         it('autoplays a series of moves based on string', function() {
             const s = '😄🤮ABAACD';

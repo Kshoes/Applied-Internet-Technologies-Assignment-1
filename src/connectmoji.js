@@ -94,7 +94,8 @@ function boardToString(board) {
     }
     masterString += labels;
 
-    console.log(masterString);
+    // console.log(masterString);
+    return masterString;
 
 }
 
@@ -176,28 +177,141 @@ function checkConsecutiveLine (...args) {
 
 function hasConsecutiveValues(board, row, col, n) {
 
-    let consecutiveFound = false;
+    let origin = rowColToIndex(board, row, col);
 
+    // VERTICAL CHECKS:
+    let vertCounter = n-1;
 
-    for(let r = row-n; -1 < r < row+n; r++) {
+    // traverse up
+    let currIndex = origin;
+    let r = row;
 
-        let index = rowColToIndex(board, r, col);
-        checkConsecutiveLine()
+    while(r > 0 && board.data[rowColToIndex(board, r-1, col)] === board.data[currIndex]) {  // check if out of bounds yet and if next index matches current
+        vertCounter--;
+        currIndex = rowColToIndex(board, r-1, col);
+        r--;
     }
+
+    // traverse down
+    currIndex = origin;
+    r = row;
+
+    while(r < board.rows && board.data[rowColToIndex(board, r+1, col)] === board.data[currIndex]) {
+        vertCounter--;
+        currIndex = rowColToIndex(board, r+1, col);
+        r++;
+    }
+    if(vertCounter === 0) {
+        return true;
+    }
+
+    // HORIZONTAL CHECKS:
+    let horizCounter = n-1;
+
+    // traverse left
+    currIndex = origin;
+    let c = col;
+
+    while(c > 0 && board.data[rowColToIndex(board, row, c-1)] === board.data[currIndex]) {
+        horizCounter--;
+        currIndex = rowColToIndex(board, row, c-1);
+        c--;
+    }
+
+    // traverse right
+    currIndex = origin;
+    c = col;
+    
+    while(c < board.cols && board.data[rowColToIndex(board, row, c+1)] === board.data[currIndex]) {
+        horizCounter--;
+        currIndex = rowColToIndex(board, row, c+1);
+        c++;
+    }
+    if(horizCounter === 0) {
+        return true;
+    }
+
+    // DIAGONAL CHECKS:
+
+    // Diagonal Down-slope Checks:
+    let diagDownCounter = n-1;
+
+    // traverse up left
+    currIndex = origin;
+    r = row, c = col;
+
+    while(r > 0 && c > 0 && board.data[rowColToIndex(board, r-1, c-1)] === board.data[currIndex]) {
+        diagDownCounter--;
+        currIndex = rowColToIndex(board, r-1, c-1);
+        r--; c--;
+    }
+
+    // traverse down left
+    currIndex = origin;
+    r = row, c = col;
+
+    while(r < board.rows && c < board.cols && board.data[rowColToIndex(board, r+1, c+1)] === board.data[currIndex]) {
+        diagDownCounter--;
+        currIndex = rowColToIndex(board, r+1, c+1);
+        r++; c++;
+    }
+    if(diagDownCounter === 0) {
+        return true;
+    }
+
+    // Diagonal Up-slope Checks: 
+    let diagUpCounter = n-1;
+
+    // traverse up right
+    currIndex = origin;
+    r = row, c = col;
+
+    while(r > 0 && c < board.cols && board.data[rowColToIndex(board, r-1, c+1)] === board.data[currIndex]) {
+        diagDownCounter--;
+        currIndex = rowColToIndex(board, r-1, c+1);
+        r--; c++;
+    }
+
+    // traverse down left
+    currIndex = origin;
+    r = row, c = col;
+
+    while(r < board.rows && c > 0 && board.data[rowColToIndex(board, r+1, c-1)] === board.data[currIndex]) {
+        diagDownCounter--;
+        currIndex = rowColToIndex(board, r+1, c-1);
+        r++; c--;
+    }
+    if(diagDownCounter === 0) {
+        return true;
+    }
+
+    return false;
 
 }
 
-function autoplay(board, s, numConsecutive) {
+// function autoplay(board, s, numConsecutive) {
 
-    const result = {
-        board: ,
-        lastPieceMoved: ,
-        error: ,
-        winner: 
-    }
+//     const strArr = s.split();
 
-    return result;
-}
+//     const player1 = strArr[0];
+//     const player2 = strArr[1];
+
+//     let i = 2;
+//     while(i < strArr.length) {
+//         if(i%2 === 1){
+//             getEmptyRowCol(board, strArr[i]);
+//         }
+//     }
+
+//     const result = {
+//         board: ,
+//         lastPieceMoved: ,
+//         error: ,
+//         winner: 
+//     }
+
+//     return result;
+// }
 
 
 module.exports = {
@@ -210,7 +324,7 @@ module.exports = {
     letterToCol: letterToCol,
     getEmptyRowCol: getEmptyRowCol,
     getAvailableColumns: getAvailableColumns,
-    hasConsecutiveValues: hasConsecutiveValues,
-    autoplay: autoplay
+    hasConsecutiveValues: hasConsecutiveValues
+    // autoplay: autoplay
 };
 
