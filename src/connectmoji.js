@@ -106,7 +106,7 @@ function letterToCol(letter) {
         return null;
     }
     else {
-        return letterToUnicode-=65;
+        return letterToUnicode -= 65;
     }
 }
 
@@ -289,29 +289,102 @@ function hasConsecutiveValues(board, row, col, n) {
 
 }
 
-// function autoplay(board, s, numConsecutive) {
+function autoplay(board, s, numConsecutive) {
 
-//     const strArr = s.split();
+    const strArr = Array.from(s);
 
-//     const player1 = strArr[0];
-//     const player2 = strArr[1];
+    const player1 = strArr[0];
+    const player2 = strArr[1];
 
-//     let i = 2;
-//     while(i < strArr.length) {
-//         if(i%2 === 1){
-//             getEmptyRowCol(board, strArr[i]);
-//         }
-//     }
+    let result = {
+        // board: null,
+        playerEmojis: [player1, player2],
+        // lastPieceMoved: undefined,
+        // error: undefined,
+        // winner: undefined 
+    }
 
-//     const result = {
-//         board: ,
-//         lastPieceMoved: ,
-//         error: ,
-//         winner: 
-//     }
+    // let moves = [];
 
-//     return result;
-// }
+    for(let i = 2; i < strArr.length; i++) {
+        if(i%2 === 0) {     // Player 1 moves
+
+            if(getEmptyRowCol(board, strArr[i]) === null) {     // invalid move handling
+                result.board = null;
+                result.lastPieceMoved = player1;
+                result.error = {
+                    moveNum: i-1,
+                    val: player1,
+                    col: strArr[i]
+                }
+                return result;
+            }
+
+            const p1Index = getEmptyRowCol(board, strArr[i]);
+
+            board = setCell(board, p1Index.row, p1Index.col, player1);
+
+            if(result.winner) {     // if winner already declared in previous move, throw error
+                result.board = null;
+                result.lastPieceMoved = player1;
+                result.error = {
+                    moveNum: i-1,
+                    val: player1,
+                    col: strArr[i]
+                }
+                delete result.winner;  // *tentative
+                return result;
+            }
+
+            if(hasConsecutiveValues(board, p1Index.row, p1Index.col, numConsecutive)) {     // if win condition met, declare winner
+                result.winner = player1;
+            }
+
+            result.lastPieceMoved = player1;
+
+        }
+        else {      // Player 2 moves
+
+            if(getEmptyRowCol(board, strArr[i]) === null) {     // invalid move handling
+                result.board = null;
+                result.lastPieceMoved = player2;
+                result.error = {
+                    moveNum: i-1,
+                    val: player2,
+                    col: strArr[i]
+                }
+                return result;
+            }
+
+            const p2Index = getEmptyRowCol(board, strArr[i]);
+
+            board = setCell(board, p2Index.row, p2Index.col, player2);
+
+            if(result.winner) {     // if winner already declared in previous move, throw error
+                result.board = null;
+                result.lastPieceMoved = player2;
+                result.error = {
+                    moveNum: i-1,
+                    val: player2,
+                    col: strArr[i]
+                }
+                delete result.winner; // *tentative
+                return result;
+            }
+
+            if(hasConsecutiveValues(board, p2Index.row, p2Index.col, numConsecutive)) {     // if win condition met, declare winner
+                result.winner = player2;
+            }
+
+            result.lastPieceMoved = player2;
+        }
+    }
+
+    result.board = board;
+
+
+    return result;
+}
 
 
 module.exports = {
@@ -324,7 +397,7 @@ module.exports = {
     letterToCol: letterToCol,
     getEmptyRowCol: getEmptyRowCol,
     getAvailableColumns: getAvailableColumns,
-    hasConsecutiveValues: hasConsecutiveValues
-    // autoplay: autoplay
+    hasConsecutiveValues: hasConsecutiveValues,
+    autoplay: autoplay
 };
 

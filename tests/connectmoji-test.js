@@ -344,7 +344,7 @@ describe('connectmoji', function() {
             expect(c.hasConsecutiveValues(updatedBoard, 0, 0, 3)).to.be.false;
         });
     });
-/*
+
     describe('autoplay', function() {
         it('autoplays a series of moves based on string', function() {
             const s = '😄🤮ABAACD';
@@ -358,7 +358,7 @@ describe('connectmoji', function() {
                 rows: 3,
                 cols: 4,
               },
-              pieces: ['😄', '🤮'],
+              playerEmojis: ['😄', '🤮'],
               lastPieceMoved: '🤮',
               // no winner key!
               // no error key!
@@ -376,7 +376,7 @@ describe('connectmoji', function() {
                 rows: 3,
                 cols: 4,
               },
-              pieces: ['😄', '🤮'],
+              playerEmojis: ['😄', '🤮'],
               lastPieceMoved: '😄',
               winner: '😄',
               // no error key!
@@ -392,9 +392,9 @@ describe('connectmoji', function() {
             const result = c.autoplay(board, s, 4);
             expect(result).to.deep.equal({
               board: null,
-              pieces: ['😄', '🤮'],
+              playerEmojis: ['😄', '🤮'],
               lastPieceMoved: '🤮',
-              error: {num: 8, val: '🤮', col: 'D'},
+              error: {moveNum: 8, val: '🤮', col: 'D'},
             });
         });
       
@@ -406,11 +406,11 @@ describe('connectmoji', function() {
             const result = c.autoplay(board, s, 4);
             expect(result).to.deep.equal({
               board: null,
-              pieces: ['😄', '🤮'],
+              playerEmojis: ['😄', '🤮'],
               lastPieceMoved: '😄',
-              error: {num: 1, val: '😄', col: 'D'},
+              error: {moveNum: 1, val: '😄', col: 'D'},
             });
         });
     });
-*/
+
 });
