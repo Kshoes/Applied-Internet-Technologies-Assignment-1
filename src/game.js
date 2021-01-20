@@ -39,7 +39,8 @@ while(!result.winner && c.getAvailableColumns(result.board).length !== 0) {
 
         let validMove = false;
         
-        while(!validMove) {
+        while(!validMove) {     // keep prompting player until valid input is received
+
             const nextPlayerMove = readlineSync.question('Choose a column to drop your piece in: ');
 
             if(c.getEmptyRowCol(result.board, nextPlayerMove)) {
@@ -65,7 +66,8 @@ while(!result.winner && c.getAvailableColumns(result.board).length !== 0) {
 
         const nextAIMove = readlineSync.question('Press ENTER to see AI move: ');
         const availableColumns = c.getAvailableColumns(result.board);
-        moveCol = availableColumns[Math.floor(Math.random() * availableColumns.length)];
+
+        moveCol = availableColumns[Math.floor(Math.random() * availableColumns.length)];    // AI chooses random available column as a move
 
         if(c.getEmptyRowCol(result.board, moveCol)) {
             const index = c.getEmptyRowCol(result.board, moveCol);

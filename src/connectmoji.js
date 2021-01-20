@@ -14,7 +14,15 @@ function generateBoard(rows, cols, fill = null) {
 
 function rowColToIndex(board, row, col) {
 
-    return board.cols * row + col;
+    if(board.rows > row && board.cols > col) {      // need to check if row and col are valid first
+        return board.cols * row + col;
+    }
+    else {
+        // console.log(board.rows + " " + board.cols);
+        // console.log("rowColToIndex out of bounds: " + row + " " + col);
+
+        return null;    
+    }
 }
 
 function indexToRowCol(board, i) {
@@ -260,7 +268,7 @@ function hasConsecutiveValues(board, row, col, n) {
     r = row, c = col;
 
     while(r > 0 && c < board.cols && board.data[rowColToIndex(board, r-1, c+1)] === board.data[currIndex]) {
-        diagDownCounter--;
+        diagUpCounter--;
         currIndex = rowColToIndex(board, r-1, c+1);
         r--; c++;
     }
@@ -270,11 +278,11 @@ function hasConsecutiveValues(board, row, col, n) {
     r = row, c = col;
 
     while(r < board.rows && c > 0 && board.data[rowColToIndex(board, r+1, c-1)] === board.data[currIndex]) {
-        diagDownCounter--;
+        diagUpCounter--;
         currIndex = rowColToIndex(board, r+1, c-1);
         r++; c--;
     }
-    if(diagDownCounter <= 0) {
+    if(diagUpCounter <= 0) {
         return true;
     }
 
