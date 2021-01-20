@@ -1,7 +1,6 @@
-const wcwidth = require("wcwidth");
-// implement your functions here
-// ...don't forget to export functions!
+// game functions
 
+const wcwidth = require("wcwidth");
 
 function generateBoard(rows, cols, fill = null) {
 
@@ -67,7 +66,7 @@ function boardToString(board) {
                 rowString += " " + board.data[index] + "  |";
             }
             else if(wcwidth(board.data[index]) == 2) {
-                rowString += " " + board.data[index] + " |";
+                rowString += " " + board.data[index] + "  |";
             }  
             else if(wcwidth(board.data[index]) == 3) {
                 rowString += board.data[index] + " |";
@@ -169,12 +168,6 @@ function getAvailableColumns(board) {
     return availableColumns;
 }
 
-function checkConsecutiveLine (...args) {
-
-    return (args[0] !== null && args.every(x => x === args[0]));
-
-}
-
 function hasConsecutiveValues(board, row, col, n) {
 
     let origin = rowColToIndex(board, row, col);
@@ -201,7 +194,7 @@ function hasConsecutiveValues(board, row, col, n) {
         currIndex = rowColToIndex(board, r+1, col);
         r++;
     }
-    if(vertCounter === 0) {
+    if(vertCounter <= 0) {
         return true;
     }
 
@@ -227,7 +220,7 @@ function hasConsecutiveValues(board, row, col, n) {
         currIndex = rowColToIndex(board, row, c+1);
         c++;
     }
-    if(horizCounter === 0) {
+    if(horizCounter <= 0) {
         return true;
     }
 
@@ -255,7 +248,7 @@ function hasConsecutiveValues(board, row, col, n) {
         currIndex = rowColToIndex(board, r+1, c+1);
         r++; c++;
     }
-    if(diagDownCounter === 0) {
+    if(diagDownCounter <= 0) {
         return true;
     }
 
@@ -281,7 +274,7 @@ function hasConsecutiveValues(board, row, col, n) {
         currIndex = rowColToIndex(board, r+1, c-1);
         r++; c--;
     }
-    if(diagDownCounter === 0) {
+    if(diagDownCounter <= 0) {
         return true;
     }
 
@@ -381,7 +374,6 @@ function autoplay(board, s, numConsecutive) {
     }
 
     result.board = board;
-
 
     return result;
 }
