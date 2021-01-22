@@ -18,9 +18,6 @@ function rowColToIndex(board, row, col) {
         return board.cols * row + col;
     }
     else {
-        // console.log(board.rows + " " + board.cols);
-        // console.log("rowColToIndex out of bounds: " + row + " " + col);
-
         return null;    
     }
 }
@@ -298,14 +295,8 @@ function autoplay(board, s, numConsecutive) {
     const player2 = strArr[1];
 
     let result = {
-        // board: null,
-        playerEmojis: [player1, player2],
-        // lastPieceMoved: undefined,
-        // error: undefined,
-        // winner: undefined 
+        playerEmojis: [player1, player2]
     }
-
-    // let moves = [];
 
     for(let i = 2; i < strArr.length; i++) {
         if(i%2 === 0) {     // Player 1 moves
